@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
+<head>
+    <meta charset="UTF-8">
+    <title>CursosApp | Aplicación de gestión de cursos</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="card">
+        <h2 th:text="${titulo}" class="card-header"></h2>
+        <div class="card-body">
+            <div th:if="${msg != null}" class='alert alert-success' th:text="${msg}" role='alert'></div>
+            <table class="table table-hover">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Identificador</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Correo</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_USER')" scope="col">Cursos</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="alumno : ${listadoAlumnos}">
+                    <td th:text="${alumno.idAlumno}"></td>
+                    <td th:text="${alumno.nombre}"></td>
+                    <td th:text="${alumno.correo}"></td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_USER')">
+                        <table>
+                            <tbody>
+                            <tr th:each="curso: ${alumno.cursos}">
+                                <td th:text="${curso.nombre}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+
+                    <td sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{/calumnos/editar/{id}  (id=${alumno.idAlumno})  }" th:text="'editar'"
+                           class="btn btn-success btn-sm" role="button" title="Editar alumno."><i
+                                class="fas fa-pencil-alt" aria-hidden="true"></i></a>
+                        <a th:href="@{/calumnos/borrar/{id}  (id=${alumno.idAlumno})   }" th:text="'borrar'"
+                           onclick="return confirm('¿Estas seguro?')" class="btn btn-danger btn-sm" role="button"
+                           title="Eliminar alumno."><i class="fas fa-trash" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <nav th:replace="~{paginator-nav :: paginator}"></nav>
+
+        </div>
+    </div>
+    <hr>
+    <a class="btn btn-primary" role="button" th:href="@{/ccursos/}">Ir a Inicio</a>
+</div> <!-- /container -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

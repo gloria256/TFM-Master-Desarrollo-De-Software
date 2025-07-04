@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>CursosApp | Aplicación de gestión de cursos</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+
+<div class="container py-4">
+    <div class="card bg-light">
+        <div class="card-header" th:text="${titulo}"></div>
+        <div class="card-body">
+
+            <img class="img-thumbnail rounded float-left" style="max-width: 25%;"
+                 th:src="${#strings.length(curso.imagen) > 0 ? '/ccursos/uploads/' + curso.imagen : '/ccursos/uploads/no-imagen.jpg'}"
+                 th:alt="${#strings.length(curso.imagen) > 0 ? curso.imagen : 'Imagen no disponible'}" />
+
+            <ul class="list-group">
+                <li class="list-group-item active" th:text="${curso.idCurso}"></li>
+                <li class="list-group-item" th:text="${curso.nombre}"></li>
+                <li class="list-group-item" th:text="${curso.duracion}"></li>
+                <li class="list-group-item" th:text="${curso.profesor}"></li>
+                <li class="list-group-item" th:text="${curso.precio}"></li>
+                <li class="list-group-item" th:text="${curso.categoria}"></li>
+            </ul>
+
+        </div>
+    </div>
+    <hr>
+    <a class="btn btn-primary" role="button" th:href="@{/ccursos/listado}">Volver al listado de cursos</a>
+</div>
+
+</body>
+</html>

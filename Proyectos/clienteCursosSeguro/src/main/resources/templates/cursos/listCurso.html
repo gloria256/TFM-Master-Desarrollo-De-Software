@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>CursosApp | Aplicación de gestión de cursos</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="card">
+        <h2 th:text="${titulo}" class="card-header"></h2>
+        <div class="card-body">
+            <div th:if="${msg != null}" class='alert alert-success' th:text="${msg}" role='alert'></div>
+            <h4 class="card-title">
+                <a sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_TEACHER')" th:href="@{/ccursos/nuevo}" class="btn btn-primary btn-xs">Crear nuevo curso</a>
+            </h4>
+
+            <table class="table table-hover">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Identificador</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Duración</th>
+                    <th scope="col">Profesor</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Categoría</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="curso : ${listadoCursos}">
+                    <td> <a class="btn btn-primary btn-xs" th:href="@{/ccursos/ver/} + ${curso.idCurso}" th:text="${curso.idCurso}"></a></td>
+                    <td th:text="${curso.nombre}"></td>
+                    <td th:text="${curso.duracion}"></td>
+                    <td th:text="${curso.profesor}"></td>
+                    <td th:text="${curso.precio}"></td>
+                    <td th:text="${curso.categoria}"></td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{/ccursos/editar/{id}  (id=${curso.idCurso})  }" th:text="'editar'" class="btn btn-success btn-sm" role="button" title="Editar el curso."><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
+                        <a th:href="@{/ccursos/borrar/{id}  (id=${curso.idCurso})   }" th:text="'borrar'" onclick="return confirm('¿Estas seguro?')" class="btn btn-danger btn-sm" role="button" title="Eliminar el curso."><i class="fas fa-trash" aria-hidden="true"></i></a>
+                    </td>
+
+                    <td sec:authorize="hasRole('ROLE_USER')">
+                        <a th:href="@{/cmatriculas/matricular/{id}  (id=${curso.idCurso}) }" th:text="'matricular'" class="btn btn-info btn-sm" role="button" title="Matricular en el curso."><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
+                    </td>
+
+                    <td sec:authorize="hasRole('ROLE_TEACHER')">
+                        <a th:href="@{/ccursos/listadoAlumnos/{id}  (id=${curso.idCurso}) }" th:text="'alumnos'" class="btn btn-info btn-sm" role="button" title="Alumnos en el curso."><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
+                    </td>
+
+                </tr>
+
+                </tbody>
+            </table>
+
+            <nav th:replace="~{paginator-nav :: paginator}"></nav>
+
+        </div>
+    </div>
+    <hr>
+    <a class="btn btn-primary" role="button" th:href="@{/ccursos/}">Ir a Inicio</a>
+</div> <!-- /container -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>CursosApp | Aplicación de gestión de cursos</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="text-center">Gestión de cursos</h1>
+    <hr>
+    <div class="card-group">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Listado cursos</h3>
+                <a class="btn btn-link" th:href="@{/ccursos/listado}">
+                    Listado cursos
+                </a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Buscar cursos</h3>
+                <a class="btn btn-link" th:href="@{/ccursos/buscar}">
+                    Buscar cursos
+                </a>
+            </div>
+        </div>
+
+
+        <div class="card" sec:authorize="hasRole('ROLE_ADMIN')">
+            <div class="card-body">
+                <h3 class="card-title">Listado alumnos</h3>
+                <a class="btn btn-link" th:href="@{/calumnos/listado}">
+                    Listado de alumnos
+                </a>
+            </div>
+        </div>
+
+        <div class="card" sec:authorize="hasRole('ROLE_ADMIN')">
+            <div class="card-body">
+                <h3 class="card-title">Listado usuarios</h3>
+                <a class="btn btn-link" th:href="@{/cusuarios/listado}">
+                    Listado de usuarios
+                </a>
+            </div>
+        </div>
+
+        <div class="card" sec:authorize="hasRole('ROLE_ADMIN')">
+            <div class="card-body">
+                <h3 class="card-title">Listado matrículas</h3>
+                <a class="btn btn-link" th:href="@{/cmatriculas/listado}">
+                    Listado de matrículas
+                </a>
+            </div>
+        </div>
+
+        <div class="card" sec:authorize="hasRole('ROLE_USER')">
+            <div class="card-body">
+                <h3 class="card-title">Listado de mis cursos</h3>
+                <a class="btn btn-link" th:href="@{/calumnos/listado/usuarioActual}">
+                    Listado de cursos del alumno
+                </a>
+            </div>
+        </div>
+
+        <div class="card" sec:authorize="hasRole('ROLE_TEACHER')">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Listado de mis cursos</h3>
+                    <a class="btn btn-link" th:href="@{/ccursos/listado/usuarioActual}">
+                        Listado cursos del profesor
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <a class="btn btn-primary" role="button" th:href="@{/logout}">Salir</a>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
