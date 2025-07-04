@@ -8,16 +8,16 @@ ALTER TABLE `usuariosdbsec`.`Authorities` AUTO_INCREMENT = 1 ;
 DELETE FROM `usuariosdbsec`.`Users`;
 ALTER TABLE `usuariosdbsec`.`Users` AUTO_INCREMENT = 1 ;
 
-INSERT INTO `usuariosdbsec`.`Users` VALUES (1, 'Admin uno', 'admin1', 'admin.uno@uah.es', 1);
-INSERT INTO `usuariosdbsec`.`Users` VALUES (2, 'Profesor Uno', 'uno', 'profesor.uno@uah.es', 1);
-INSERT INTO `usuariosdbsec`.`Users` VALUES (3, 'Profesor Dos', 'dos', 'profesor.dos@uah.es', 1);
-INSERT INTO `usuariosdbsec`.`Users` VALUES (4, 'Profesor Tres', 'tres', 'profesor.tres@uah.es', 1);
-INSERT INTO `usuariosdbsec`.`Users` VALUES (5, 'Profesor Cuatro', 'cuatro', 'profesor.cuatro@uah.es', 1);
-INSERT INTO `usuariosdbsec`.`Users` VALUES (6, 'Alumno Uno', 'uno', 'alumno.uno@uah.es', 1);
-INSERT INTO `usuariosdbsec`.`Users` VALUES (7, 'Alumno Dos', 'dos', 'alumno.dos@uah.es', 1);
-INSERT INTO `usuariosdbsec`.`Users` VALUES (8, 'Alumno Tres', 'tres', 'alumno.tres@uah.es', 1);
-INSERT INTO `usuariosdbsec`.`Users` VALUES (9, 'Alumno Cuatro', 'cuatro', 'alumno.cuatro@uah.es', 1);
-INSERT INTO `usuariosdbsec`.`Users` VALUES (10, 'Alumno Cinco', 'cinco', 'alumno.cinco@uah.es', 1);
+INSERT INTO `usuariosdbsec`.`Users` VALUES (1, 'Admin uno', 'admin.uno@uah.es', 1, NULL);
+INSERT INTO `usuariosdbsec`.`Users` VALUES (2, 'Profesor Uno', 'profesor.uno@uah.es', 1, NULL);
+INSERT INTO `usuariosdbsec`.`Users` VALUES (3, 'Profesor Dos', 'profesor.dos@uah.es', 1, NULL);
+INSERT INTO `usuariosdbsec`.`Users` VALUES (4, 'Profesor Tres', 'profesor.tres@uah.es', 1, NULL);
+INSERT INTO `usuariosdbsec`.`Users` VALUES (5, 'Profesor Cuatro', 'profesor.cuatro@uah.es', 1, NULL);
+INSERT INTO `usuariosdbsec`.`Users` VALUES (6, 'Alumno Uno', 'alumno.uno@uah.es', 1, NULL);
+INSERT INTO `usuariosdbsec`.`Users` VALUES (7, 'Alumno Dos', 'alumno.dos@uah.es', 1, NULL);
+INSERT INTO `usuariosdbsec`.`Users` VALUES (8, 'Alumno Tres', 'alumno.tres@uah.es', 1, NULL);
+INSERT INTO `usuariosdbsec`.`Users` VALUES (9, 'Alumno Cuatro', 'alumno.cuatro@uah.es', 1, NULL);
+INSERT INTO `usuariosdbsec`.`Users` VALUES (10, 'Alumno Cinco', 'alumno.cinco@uah.es', 1, NULL);
 
 INSERT INTO `usuariosdbsec`.`Authorities` VALUES (1, 'ROLE_ADMIN');
 INSERT INTO `usuariosdbsec`.`Authorities` VALUES (2, 'ROLE_USER');

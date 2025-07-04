@@ -17,6 +17,12 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE SCHEMA IF NOT EXISTS `usuariosdbsec` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ;
 USE `usuariosdbsec` ;
 
+-- -------------------------------------------------------------------------------------------------
+--                           Creacion del usuario de la base de datos                             --
+-- -------------------------------------------------------------------------------------------------
+grant all privileges on usuariosdbsec.* to 'usuariosdbsec' identified BY '1234567890';
+grant all privileges on usuariosdbsec.* to 'usuariosdbsec'@'localhost' identified BY '1234567890';
+
 -- -----------------------------------------------------
 -- Table `usuariosdbsec`.`Users`
 -- -----------------------------------------------------
@@ -25,9 +31,9 @@ DROP TABLE IF EXISTS `usuariosdbsec`.`Users` ;
 CREATE TABLE IF NOT EXISTS `usuariosdbsec`.`Users` (
   `idUsuario` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(60) NOT NULL,
   `correo` VARCHAR(45) NOT NULL,
   `enable` TINYINT(1) NOT NULL DEFAULT 1,
+  `sub` VARCHAR(255) UNIQUE NULL,-- UNIQUE NOT NULL,
   PRIMARY KEY (`idUsuario`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
   UNIQUE INDEX `correo_UNIQUE` (`correo` ASC) VISIBLE)
