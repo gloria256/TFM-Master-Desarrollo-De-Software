@@ -28,9 +28,9 @@ public class UsuariosController {
         return usuariosService.buscarUsuarioPorCorreo(correo);
     }
 
-    @GetMapping("/usuarios/login/{correo}/{clave}")
-    public Usuario buscarUsuarioPorCorreoConClave(@PathVariable("correo") String correo, @PathVariable("clave") String clave) {
-        return usuariosService.buscarUsuarioPorCorreoClave(correo, clave);
+    @GetMapping("/usuarios/login/{correo}/{sub}")
+    public Usuario buscarUsuarioPorCorreoConSub(@PathVariable("correo") String correo, @PathVariable("sub") String sub) {
+        return usuariosService.buscarUsuarioPorCorreoSub(correo, sub);
     }
 
     @GetMapping("/usuarios/nombre/{nombre}")

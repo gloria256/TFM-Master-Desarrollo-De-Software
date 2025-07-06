@@ -9,6 +9,6 @@ public interface IUsuariosJPA extends JpaRepository<Usuario, Integer> {
 
     Usuario findByCorreo(String correo);
 
-    Usuario findByCorreoAndClave(String correo, String clave);
+    Usuario findByCorreoAndSub(String correo, String sub);
 
 }
