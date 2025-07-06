@@ -13,8 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
 import java.util.Arrays;
+
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 @Controller
 @RequestMapping("/calumnos")
@@ -34,8 +36,8 @@ public class AlumnosController {
     }
 
     @GetMapping("/listado/usuarioActual")
-    public String listadoAlumnoCursos(Model model, @RequestParam(name="page", defaultValue="0") int page, Principal principal) {
-        Alumno alumno = alumnosService.buscarAlumnoPorCorreo(principal.getName());
+    public String listadoAlumnoCursos(Model model, @RequestParam(name="page", defaultValue="0") int page, @AuthenticationPrincipal OidcUser oidcUser) {
+    	Alumno alumno = alumnosService.buscarAlumnoPorCorreo(oidcUser.getAttribute("email"));
         model.addAttribute("titulo", "Listado de cursos del alumno");
         Page<Alumno> listado = new PageImpl<>(Arrays.asList(alumno));
         PageRender<Alumno> pageRender = new PageRender<Alumno>("/calumnos/listado", listado);

@@ -18,7 +18,7 @@ import java.util.List;
 public class UsuariosServiceImpl implements IUsuariosService {
 
     @Autowired
-    RestTemplate template;
+    RestTemplate restTemplateMicroUsuariosMatricula;
 
     @Autowired
     IAlumnosService alumnosService;
@@ -27,7 +27,7 @@ public class UsuariosServiceImpl implements IUsuariosService {
 
     @Override
     public Page<Usuario> buscarTodos(Pageable pageable) {
-        Usuario[] cursos = template.getForObject(url, Usuario[].class);
+        Usuario[] cursos = restTemplateMicroUsuariosMatricula.getForObject(url, Usuario[].class);
         List<Usuario> usuariosList = Arrays.asList(cursos);
 
         int pageSize = pageable.getPageSize();
@@ -48,35 +48,35 @@ public class UsuariosServiceImpl implements IUsuariosService {
 
     @Override
     public Usuario buscarUsuarioPorId(Integer idUsuario) {
-        Usuario usuario = template.getForObject(url + "/" + idUsuario, Usuario.class);
+        Usuario usuario = restTemplateMicroUsuariosMatricula.getForObject(url + "/" + idUsuario, Usuario.class);
         return usuario;
     }
 
     @Override
     public Usuario buscarUsuarioPorNombre(String nombre) {
-        Usuario usuario = template.getForObject(url+"/nombre/"+nombre, Usuario.class);
+        Usuario usuario = restTemplateMicroUsuariosMatricula.getForObject(url+"/nombre/"+nombre, Usuario.class);
         return usuario;
     }
 
     @Override
     public Usuario buscarUsuarioPorCorreo(String correo) {
-        Usuario usuario = template.getForObject(url+"/correo/"+correo, Usuario.class);
+        Usuario usuario = restTemplateMicroUsuariosMatricula.getForObject(url+"/correo/"+correo, Usuario.class);
         return usuario;
     }
 
     @Override
-    public Usuario login(String correo, String clave) {
-        Usuario usuario = template.getForObject(url+"/login/"+correo+"/"+clave, Usuario.class);
+    public Usuario login(String correo, String sub) {
+        Usuario usuario = restTemplateMicroUsuariosMatricula.getForObject(url+"/login/"+correo+"/"+sub, Usuario.class);
         return usuario;
     }
 
     @Override
     public void guardarUsuario(Usuario usuario) {
         if (usuario.getIdUsuario() != null && usuario.getIdUsuario() > 0) {
-            template.put(url, usuario);
+        	restTemplateMicroUsuariosMatricula.put(url, usuario);
         } else {
             usuario.setIdUsuario(0);
-            template.postForObject(url, usuario, String.class);
+            restTemplateMicroUsuariosMatricula.postForObject(url, usuario, String.class);
             Alumno alumno = new Alumno(usuario.getNombre(), usuario.getCorreo());
             alumnosService.guardarAlumno(alumno);
         }
@@ -84,7 +84,7 @@ public class UsuariosServiceImpl implements IUsuariosService {
 
     @Override
     public void eliminarUsuario(Integer idUsuario) {
-        template.delete(url+"/"+idUsuario);
+    	restTemplateMicroUsuariosMatricula.delete(url+"/"+idUsuario);
     }
 
  }
