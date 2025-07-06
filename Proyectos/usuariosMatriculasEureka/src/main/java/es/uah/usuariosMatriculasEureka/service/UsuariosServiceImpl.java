@@ -34,8 +34,8 @@ public class UsuariosServiceImpl implements IUsuariosService {
     }
 
     @Override
-    public Usuario buscarUsuarioPorCorreoClave(String correo, String clave) {
-        return usuariosDAO.buscarUsuarioPorCorreoClave(correo, clave);
+    public Usuario buscarUsuarioPorCorreoSub(String correo, String sub) {
+        return usuariosDAO.buscarUsuarioPorCorreoSub(correo, sub);
     }
 
     @Override

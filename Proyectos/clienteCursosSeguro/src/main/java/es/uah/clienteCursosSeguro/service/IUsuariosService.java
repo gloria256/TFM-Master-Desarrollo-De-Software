@@ -14,7 +14,7 @@ public interface IUsuariosService {
 
     Usuario buscarUsuarioPorCorreo(String correo);
 
-    Usuario login(String correo, String clave);
+    Usuario login(String correo, String sub);
 
     void guardarUsuario(Usuario usuario);
 

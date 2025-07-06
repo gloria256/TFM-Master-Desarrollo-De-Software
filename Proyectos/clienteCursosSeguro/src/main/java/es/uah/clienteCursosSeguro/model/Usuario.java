@@ -6,18 +6,19 @@ public class Usuario {
 
     private Integer idUsuario;
     private String nombre;
-    private String clave;
     private String correo;
     private boolean enable;
+    private String sub;
     private List<Rol> roles;
     private List<Matricula> matriculas;
+    
 
-    public Usuario(Integer idUsuario, String nombre, String clave, String correo, boolean enable, List<Rol> roles, List<Matricula> matriculas) {
+    public Usuario(Integer idUsuario, String nombre, String correo, boolean enable, String sub, List<Rol> roles, List<Matricula> matriculas) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
-        this.clave = clave;
         this.correo = correo;
         this.enable = enable;
+        this.sub = sub;
         this.roles = roles;
         this.matriculas = matriculas;
     }
@@ -41,14 +42,6 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
-
     public String getCorreo() {
         return correo;
     }
@@ -63,6 +56,14 @@ public class Usuario {
 
     public void setEnable(boolean enable) {
         this.enable = enable;
+    }
+    
+    public String getSub() {
+        return sub;
+    }
+
+    public void setSub(String sub) {
+        this.sub = sub;
     }
 
     public List<Rol> getRoles() {
@@ -86,9 +87,9 @@ public class Usuario {
         return "Usuario{" +
                 "idUsuario=" + idUsuario +
                 ", nombre='" + nombre + '\'' +
-                ", clave='" + clave + '\'' +
                 ", correo='" + correo + '\'' +
                 ", enable=" + enable +
+                ", sub=" + sub +
                 ", roles=" + roles +
                 ", matriculas=" + matriculas +
                 '}';

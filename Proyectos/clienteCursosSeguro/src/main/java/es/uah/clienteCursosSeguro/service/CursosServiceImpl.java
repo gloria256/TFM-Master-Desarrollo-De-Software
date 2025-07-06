@@ -17,13 +17,13 @@ import java.util.List;
 public class CursosServiceImpl implements ICursosService {
 
     @Autowired
-    RestTemplate template;
+    RestTemplate restTemplateMicroCursosAlumnos;
 
     String url = "http://localhost:8090/api/cursos/cursos";
 
     @Override
     public Page<Curso> buscarTodos(Pageable pageable) {
-        Curso[] cursos = template.getForObject(url, Curso[].class);
+        Curso[] cursos = restTemplateMicroCursosAlumnos.getForObject(url, Curso[].class);
         List<Curso> cursosList = Arrays.asList(cursos);
 
         int pageSize = pageable.getPageSize();
@@ -44,13 +44,13 @@ public class CursosServiceImpl implements ICursosService {
 
     @Override
     public Curso buscarCursoPorId(Integer idCurso) {
-        Curso curso = template.getForObject(url + "/" + idCurso, Curso.class);
+        Curso curso = restTemplateMicroCursosAlumnos.getForObject(url + "/" + idCurso, Curso.class);
         return curso;
     }
 
     @Override
     public Page<Curso> buscarCursosPorNombre(String nombre, Pageable pageable) {
-        Curso[] cursos = template.getForObject(url + "/nombre/" + nombre, Curso[].class);
+        Curso[] cursos = restTemplateMicroCursosAlumnos.getForObject(url + "/nombre/" + nombre, Curso[].class);
         List<Curso> cursosList= Arrays.asList(cursos);
 
         int pageSize = pageable.getPageSize();
@@ -71,7 +71,7 @@ public class CursosServiceImpl implements ICursosService {
 
     @Override
     public Page<Curso> buscarCursosPorCategoria(String categoria, Pageable pageable) {
-        Curso[] cursos = template.getForObject(url + "/categoria/" + categoria, Curso[].class);
+        Curso[] cursos = restTemplateMicroCursosAlumnos.getForObject(url + "/categoria/" + categoria, Curso[].class);
         List<Curso> categoriaList = Arrays.asList(cursos);
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
@@ -91,7 +91,7 @@ public class CursosServiceImpl implements ICursosService {
 
     @Override
     public Page<Curso> buscarCursosPorProfesor(String profesor, Pageable pageable) {
-        Curso[] cursos = template.getForObject(url + "/profesor/" + profesor, Curso[].class);
+        Curso[] cursos = restTemplateMicroCursosAlumnos.getForObject(url + "/profesor/" + profesor, Curso[].class);
         List<Curso> profesList = Arrays.asList(cursos);
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
@@ -112,15 +112,15 @@ public class CursosServiceImpl implements ICursosService {
     @Override
     public void guardarCurso(Curso curso) {
         if (curso.getIdCurso() != null && curso.getIdCurso() > 0) {
-            template.put(url, curso);
+        	restTemplateMicroCursosAlumnos.put(url, curso);
         } else {
             curso.setIdCurso(0);
-            template.postForObject(url, curso, String.class);
+            restTemplateMicroCursosAlumnos.postForObject(url, curso, String.class);
         }
     }
 
     @Override
     public void eliminarCurso(Integer idCurso) {
-        template.delete(url + "/" + idCurso);
+    	restTemplateMicroCursosAlumnos.delete(url + "/" + idCurso);
     }
 }

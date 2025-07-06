@@ -16,14 +16,14 @@ public class Usuario {
     @Column(name = "username", nullable = false, length = 45)
     private String nombre;
 
-    @Column(name = "password", nullable = false, length = 60)
-    private String clave;
-
     @Column(name = "correo", nullable = false, length = 45)
     private String correo;
 
     @Column(name = "enable", nullable = false)
     private Boolean enable = false;
+    
+    @Column(name = "sub", nullable = true, length = 255)
+    private String sub;
 
     @OneToMany(mappedBy = "usuario", cascade = {CascadeType.ALL}) //No utilizar: orphanRemoval = true
     private List<Matricula> matriculas;
@@ -50,14 +50,6 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String password) {
-        this.clave = password;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -72,6 +64,14 @@ public class Usuario {
 
     public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
+    }
+    
+    public String getSub() {
+        return sub;
+    }
+
+    public void setSub(String sub) {
+        this.sub = sub;
     }
 
     public List<Matricula> getMatriculas() {
