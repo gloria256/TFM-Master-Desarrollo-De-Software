@@ -21,7 +21,7 @@ import java.util.List;
 public class MatriculasServiceImpl implements IMatriculasService {
 
     @Autowired
-    RestTemplate template;
+    RestTemplate restTemplateMicroUsuariosMatricula;
 
     @Autowired
     IAlumnosService alumnosService;
@@ -36,7 +36,7 @@ public class MatriculasServiceImpl implements IMatriculasService {
 
     @Override
     public Page<Matricula> buscarTodas(Pageable pageable) {
-        Matricula[] matriculas = template.getForObject(url, Matricula[].class);
+        Matricula[] matriculas = restTemplateMicroUsuariosMatricula.getForObject(url, Matricula[].class);
         List<Matricula> matriculasList = Arrays.asList(matriculas);
 
         int pageSize = pageable.getPageSize();
@@ -56,7 +56,7 @@ public class MatriculasServiceImpl implements IMatriculasService {
 
     @Override
     public Page<Matricula> buscarMatriculasPorIdCurso(Integer idCurso, Pageable pageable) {
-        Matricula[] matriculas = template.getForObject(url+"/curso/"+idCurso, Matricula[].class);
+        Matricula[] matriculas = restTemplateMicroUsuariosMatricula.getForObject(url+"/curso/"+idCurso, Matricula[].class);
         List<Matricula> matriculasList = Arrays.asList(matriculas);
 
         int pageSize = pageable.getPageSize();
@@ -76,7 +76,7 @@ public class MatriculasServiceImpl implements IMatriculasService {
 
     @Override
     public Matricula buscarMatriculaPorId(Integer idMatricula) {
-        Matricula matricula = template.getForObject(url+"/"+idMatricula, Matricula.class);
+        Matricula matricula = restTemplateMicroUsuariosMatricula.getForObject(url+"/"+idMatricula, Matricula.class);
         return matricula;
     }
 
@@ -109,14 +109,14 @@ public class MatriculasServiceImpl implements IMatriculasService {
             matricula.setIdMatricula(0);
             matricula.setFecha(new Date());
             //template.postForLocation(url, matricula);
-            template.postForObject(url, matricula, String.class);
+            restTemplateMicroUsuariosMatricula.postForObject(url, matricula, String.class);
             return resultado + "Los datos de la matricula fueron guardados!";
         }
     }
 
     @Override
     public void eliminarMatricula(Integer idMatricula) {
-        template.delete(url+ "/" +  idMatricula);
+    	restTemplateMicroUsuariosMatricula.delete(url+ "/" +  idMatricula);
     }
 
 }

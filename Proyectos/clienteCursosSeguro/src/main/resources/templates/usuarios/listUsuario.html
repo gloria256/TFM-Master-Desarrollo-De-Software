@@ -23,7 +23,7 @@
                 <tr>
                     <th scope="col">Identificador</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Clave</th>
+                    <th scope="col">Sub</th>
                     <th scope="col">Correo</th>
                     <th scope="col">Rol</th>
                 </tr>
@@ -32,7 +32,7 @@
                 <tr th:each="usuario : ${listadoUsuarios}">
                     <td> <a class="btn btn-primary btn-xs" th:href="@{/cusuarios/ver/} + ${usuario.idUsuario}" th:text="${usuario.idUsuario}"></a></td>
                     <td th:text="${usuario.nombre}"></td>
-                    <td th:text="${usuario.clave}"></td>
+                    <td th:text="${usuario.sub}"></td>
                     <td th:text="${usuario.correo}"></td>
                     <td>
                         <table>

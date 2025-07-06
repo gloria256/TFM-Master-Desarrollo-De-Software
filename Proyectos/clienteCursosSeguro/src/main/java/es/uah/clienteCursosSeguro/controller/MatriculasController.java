@@ -9,12 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
 
 @Controller
 @RequestMapping("/cmatriculas")
@@ -53,8 +54,8 @@ public class MatriculasController {
     }
 
     @GetMapping("/matricular/{idCurso}")
-    public String matricular(@PathVariable("idCurso") Integer idCurso, RedirectAttributes attributes, Principal principal) {
-        Usuario usuario = usuariosService.buscarUsuarioPorCorreo(principal.getName());
+    public String matricular(@PathVariable("idCurso") Integer idCurso, RedirectAttributes attributes, @AuthenticationPrincipal OidcUser oidcUser) {
+        Usuario usuario = usuariosService.buscarUsuarioPorCorreo(oidcUser.getAttribute("email"));
         Matricula matricula = new Matricula(idCurso, usuario);
         String resultado = matriculasService.guardarMatricula(matricula);
         attributes.addFlashAttribute("msg", resultado);

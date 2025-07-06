@@ -17,13 +17,13 @@ import java.util.List;
 public class AlumnosServiceImpl implements IAlumnosService {
 
     @Autowired
-    RestTemplate template;
+    RestTemplate restTemplateMicroCursosAlumnos;
 
     String url = "http://localhost:8090/api/cursos/alumnos";
 
     @Override
     public Page<Alumno> buscarTodos(Pageable pageable) {
-        Alumno[] alumnos = template.getForObject(url, Alumno[].class);
+        Alumno[] alumnos = restTemplateMicroCursosAlumnos.getForObject(url, Alumno[].class);
         List<Alumno> alumnosList = Arrays.asList(alumnos);
 
         int pageSize = pageable.getPageSize();
@@ -43,33 +43,33 @@ public class AlumnosServiceImpl implements IAlumnosService {
 
     @Override
     public Alumno buscarAlumnoPorId(Integer idAlumno) {
-        Alumno alumno = template.getForObject(url+"/"+idAlumno, Alumno.class);
+        Alumno alumno = restTemplateMicroCursosAlumnos.getForObject(url+"/"+idAlumno, Alumno.class);
         return alumno;
     }
 
     @Override
     public Alumno buscarAlumnoPorCorreo(String correo) {
-        Alumno alumno = template.getForObject(url+"/correo/"+correo, Alumno.class);
+        Alumno alumno = restTemplateMicroCursosAlumnos.getForObject(url+"/correo/"+correo, Alumno.class);
         return alumno;
     }
 
     @Override
     public void guardarAlumno(Alumno alumno) {
         if (alumno.getIdAlumno() != null && alumno.getIdAlumno() > 0) {
-            template.put(url, alumno);
+        	restTemplateMicroCursosAlumnos.put(url, alumno);
         } else {
             alumno.setIdAlumno(0);
-            template.postForObject(url, alumno, String.class);
+            restTemplateMicroCursosAlumnos.postForObject(url, alumno, String.class);
         }
     }
 
     @Override
     public void eliminarAlumno(Integer idAlumno) {
-        template.delete(url + "/" + idAlumno);
+    	restTemplateMicroCursosAlumnos.delete(url + "/" + idAlumno);
     }
 
     @Override
     public void inscribirCurso(Integer idAlumno, Integer idCurso) {
-        template.getForObject(url+"/insc/"+idAlumno+"/"+idCurso, String.class);
+    	restTemplateMicroCursosAlumnos.getForObject(url+"/insc/"+idAlumno+"/"+idCurso, String.class);
     }
 }

@@ -23,9 +23,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
+
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 @Controller
 @RequestMapping("/ccursos")
@@ -101,9 +103,9 @@ public class CursosController {
     }
 
     @GetMapping("/listado/usuarioActual")
-    public String listadoAlumnoCursos(Model model, @RequestParam(name="page", defaultValue="0") int page, Principal principal) {
+    public String listadoAlumnoCursos(Model model, @RequestParam(name="page", defaultValue="0") int page, @AuthenticationPrincipal OidcUser oidcUser) {
         Pageable pageable = PageRequest.of(page, 5);
-        Usuario usuario = usuariosService.buscarUsuarioPorCorreo(principal.getName());
+        Usuario usuario = usuariosService.buscarUsuarioPorCorreo(oidcUser.getAttribute("email"));
         Page<Curso> listado = cursosService.buscarCursosPorProfesor(usuario.getNombre(), pageable);
         PageRender<Curso> pageRender = new PageRender<Curso>("/ccursos/listado/usuarioActual", listado);
         model.addAttribute("titulo", "Listado de los cursos del profesor");
