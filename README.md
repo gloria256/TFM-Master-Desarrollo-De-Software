@@ -13,7 +13,8 @@ Para más detalles del trabajo realizado consulte la memoria del TFM en:
 
 ### Bade de datos MySQL
 
-Ejecutar los archivos presentes en la carpet db, por defecto la contraseña es "1234567890"
+Se deben crear las bases de datos para cada microservicio. Para ello, ejecutar los archivos presentes en la carpet db,
+por defecto la contraseña es "1234567890"
 
 ### Proveedor Auth0
 
